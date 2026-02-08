@@ -134,8 +134,8 @@ def extract_request_info(text):
     m = re.search(r'日時[:：]\s*(\d{4})[/-](\d{1,2})[/-](\d{1,2})', text)
     if m:
         mm = int(m.group(2))
-       dd = int(m.group(3))
-date_str = f"{mm:02d}/{dd:02d}"
+        dd = int(m.group(3))
+        date_str = f"{mm:02d}/{dd:02d}"
 
 # 名前・ルール・武器（「生徒No<数字>・<名前>・<ルール>・<武器>」）
 name = "不明"
