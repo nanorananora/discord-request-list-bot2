@@ -134,7 +134,27 @@ def extract_request_info(text):
     m = re.search(r'日時[:：]\s*(\d{4})[/-](\d{1,2})[/-](\d{1,2})', text)
     if m:
         mm = int(m.group(2))
-        dd = int(m.g
+       dd = int(m.group(3))
+date_str = f"{mm:02d}/{dd:02d}"
+
+# 名前・ルール・武器（「生徒No<数字>・<名前>・<ルール>・<武器>」）
+name = "不明"
+rule = "未定"
+weapon = "未定"
+m = re.search(r'生徒No\d+・([^・\n]+)・([^・\n]+)・([^・\n]+)', text)
+if m:
+    name = m.group(1)
+    rule = m.group(2)
+    weapon = m.group(3)
+
+# 希望指導方法（短縮）
+method = shorten_method(text, lines)
+
+# タイムスタンプキー
+ts_key = extract_timestamp_key(text)
+
+return name, date_str, rule, weapon, method, ts_key
+
 # ============================== Embed creation =======================
 async def create_request_list_embed_for_channel(bot, source_channel_id, title):
     channel = bot.get_channel(source_channel_id)
