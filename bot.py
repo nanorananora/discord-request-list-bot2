@@ -119,6 +119,14 @@ def shorten_method(text, lines):
             return next_line if next_line else "未記載"
     return "未記載"
 
+def extract_timestamp_key(text):
+    # 「日時：」の後の文字列をキー（シートA列と完全一致前提）
+    m = re.search(r'日時[:：]\s*([^\n\r]+)', text)
+    if m:
+        return m.group(1).strip()
+    return None
+
+
 def extract_request_info(text):
     lines = text.splitlines()
 
